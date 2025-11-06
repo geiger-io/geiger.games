@@ -78,6 +78,22 @@ export class HomePage {
                 "Is this some kind of joke? That didn't make sense."
             ];
             
+            // Check for bad words FIRST (before any other processing)
+            if (badwords && val.match(new RegExp(badwords, 'i'))) {
+                const text = bwrds[Math.floor(Math.random() * bwrds.length)];
+                this.textSwap(statement, text);
+                // Reset hint appropriately - don't say it will redirect
+                if (progress === 0) {
+                    // First input (name) - keep original hint
+                    hint.innerHTML = "Hint: Start typing, Submit";
+                } else {
+                    // Second input (interest) - reset to interest hint
+                    hint.innerHTML = hint2;
+                }
+                textForm.reset();
+                return; // Don't increment progress if bad word detected
+            }
+            
             progress++;
             textForm.reset();
             
@@ -85,32 +101,31 @@ export class HomePage {
                 statement.innerHTML = statement2;
                 hint.innerHTML = hint2;
             } else if (progress >= 2) {
-                hint.innerHTML = hint3;
-                
-                // Check for bad words FIRST (before route matching)
-                if (badwords && val.match(new RegExp(badwords, 'i'))) {
-                    const text = bwrds[Math.floor(Math.random() * bwrds.length)];
-                    this.textSwap(statement, text);
-                } else if (val.match(/(book|digital books|ebooks|epub|ibooks|kindle)/)) {
+                if (val.match(/(book|digital books|ebooks|epub|ibooks|kindle)/)) {
+                    hint.innerHTML = hint3;
                     this.textSwap(statement, statementbooks);
                     setTimeout(() => window.app.router.navigate('/books'), 1500);
                 } else if (val.match(/(web|website|web site|interwebs|internet|kickstarter|crowdfunding|pledgemanager|pledges|mantic|pledgehammer)/)) {
+                    hint.innerHTML = hint3;
                     this.textSwap(statement, statementweb);
                     setTimeout(() => window.app.router.navigate('/web'), 2000);
                 } else if (val.match(/(app|apps|application|applications|webapp|webapps|ios|iphone|ipad|i phone|i pad|android|apptastic)/)) {
+                    hint.innerHTML = hint3;
                     this.textSwap(statement, statementapp);
                     setTimeout(() => window.app.router.navigate('/apps'), 2000);
                 } else if (val.match(/(contact|email|telephone|address)/)) {
+                    hint.innerHTML = hint3;
                     this.textSwap(statement, statementcontact);
                     setTimeout(() => window.app.router.navigate('/contact'), 2500);
                 } else if (val.match(/(news|press|pr|blog|articles)/)) {
+                    hint.innerHTML = hint3;
                     this.textSwap(statement, statementnews);
                     setTimeout(() => window.app.router.navigate('/news'), 2500);
                 } else {
                     // No match found - show "no idea" response
                     const text = noidea[Math.floor(Math.random() * noidea.length)];
                     this.textSwap(statement, text);
-                    hint.innerHTML = hint2;
+                    hint.innerHTML = hint2; // Reset hint, don't say it will redirect
                 }
             }
         });
