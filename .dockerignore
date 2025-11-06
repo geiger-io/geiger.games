@@ -1,0 +1,15 @@
+.git
+.gitignore
+.DS_Store
+node_modules
+*.log
+.vscode
+.idea
+news/_site
+_site
+.sass-cache
+.jekyll-cache
+.jekyll-metadata
+*.md
+!README.md
+Gemfile.lock

@@ -1,0 +1,24 @@
+# Jekyll build files (generated HTML from markdown - should not be committed)
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+news/_site/  # Old build directory
+
+# Dependencies
+node_modules/
+vendor/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Docker
+.dockerignore
+

@@ -1,0 +1,14 @@
+@mixin bp($point) {
+  @if $point == papaUp {
+    @media (min-width: 1600px) { @content; }
+  }
+  @else if $point == mamaUp {
+    @media (min-width: 1250px) { @content; }
+  }
+  @else if $point == bigbroUp {
+    @media (min-width: 1024px) { @content; }
+  }
+  @else if $point == babyUp {
+    @media (min-width: 600px)  { @content; }
+  }
+}

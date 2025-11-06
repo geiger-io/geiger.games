@@ -1,0 +1,55 @@
+# Jekyll configuration for GitHub Pages
+title: Geiger
+description: Geiger website
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "" # the base hostname & protocol for your site
+
+# Exclude files from Jekyll processing (but they'll still be served as static files)
+exclude:
+  - archive/
+  - node_modules/
+  - vendor/
+  - Dockerfile
+  - docker-compose.yml
+  - README.md
+  - .git/
+  - .gitignore
+  - ResponsiveSlides.js-master/
+  - puphpet/
+  - news/_site/  # Exclude built Jekyll site (old build directory)
+  - js/
+  - css/
+  - img/
+  - video/
+  - index.html  # Main site index (static JavaScript app)
+  - 404.html
+  - robots.txt
+  - humans.txt
+  - feed.xml
+  - favicon.ico
+  - apple-touch-icon-precomposed.png
+  - crossdomain.xml
+  - badwords.txt
+  - config.codekit
+  - html/
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+
+# Development settings
+watch: true
+force_polling: true  # Better for Docker volume mounts
+
+# Defaults for posts
+defaults:
+  - scope:
+      path: "_posts"
+      type: "posts"
+    values:
+      layout: "post"
+      category: "news"
+

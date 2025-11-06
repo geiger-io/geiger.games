@@ -1,0 +1,550 @@
+@import 'normalize';
+@import 'mixins';
+@import 'helpers';
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+   
+// Colors
+
+$purpleHighlight: rgb(209,187,252);
+$purplelight: rgb(142,84,255);
+$purpleMedium: rgb(65,0,121);
+$purpleDark: rgb(20,8,31);
+$purpleDarkDark: rgb(9,0,17);
+
+$greenMedium: rgb(47,204,72);
+$greenTint: rgb(211,237,215);
+
+// Typography
+
+body{
+	color:#fff;
+	font-family: "futura-pt";
+	font-size:18px;
+	font-weight:100;
+}
+
+h1{
+	font-weight:100;
+	font-size:2em;
+	line-height: 1em;
+	margin: 20px 0;
+	@include bp(babyUp) {
+		font-size:4em;
+		margin: 50px 0 40px 0;
+	}
+}
+
+h2{
+	color:$greenMedium;
+	font-weight: 100;
+	font-size: 1.3em;
+	line-height: 1.2em;
+	@include bp(babyUp) {
+		font-size:2em;
+	}
+}
+
+h3{
+	color:$greenMedium;
+	font-weight: 700;
+	font-size: 1em;
+	line-height: 1em;
+	@include bp(babyUp) {
+		font-size:1.3em;
+	}
+}
+
+p, li{
+	color:$greenTint;
+	font-size:1em;
+		@include bp(babyUp) {
+		font-size:1.3em;
+	}
+}
+
+p a{
+	color:$purplelight;
+	text-decoration: none;
+	border-bottom:1px dotted;
+}
+
+a:hover{
+	color:$purpleHighlight;
+}
+
+// Layout
+
+.container{
+	width:100%;
+	max-width:1400px;
+	padding:0 6%;
+	margin:0 auto;
+	overflow-y: hidden;
+	@include bp(mamaUp) {
+		overflow:visible;
+	}
+}
+
+body{
+	background:rgb(36,26,47) url('../img/background.jpg') no-repeat center center fixed;
+	background-size:cover;
+	background-attachment: fixed;
+}
+
+video#bgvid { 
+	position: fixed; right: 0; bottom: 0;
+	min-width: 100%; min-height: 100%;
+	width: auto; height: auto; z-index: -100;
+	background: url(polina.jpg) no-repeat;
+	background-size: cover; 
+}
+
+
+#main-wrapper{
+	background: url('../img/diamonds.png') no-repeat bottom;
+}
+
+.page header{
+	text-align: center;
+}
+
+.page header h2{
+	max-width: 1024px;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.left{
+	@include bp(bigbroUp) {
+		float:left;
+	}
+}
+
+.right{
+	@include bp(bigbroUp) {
+		float:right;
+	}
+}
+
+.half-col{
+	@include bp(bigbroUp) {
+		width:48%;
+	}
+}
+.clear{
+	clear:both;
+}
+
+//Header & Nav
+#top-bar{
+	height:40px;
+	background:$purpleDark;
+	position: relative;
+	@include bp(bigbroUp) {
+		height:60px;
+	}
+}
+
+#branding{
+	width: 160px;
+	margin:0 auto;
+	@include bp(bigbroUp) {
+		width: 260px;
+		padding-top:4px;
+	}
+}
+
+#branding img{
+	margin-top: 13px;
+	width:100%;
+	height:auto;
+}
+
+#main-nav{
+	width:40px;
+	height:40px;
+	position: absolute;
+	top:0px;
+	right:0px;
+	@include bp(bigbroUp) {
+		height:60px;
+		width:60px;
+	}
+}
+
+#menu-link{
+	text-decoration: none;
+	display:block;
+	width:40px;
+	height:40px;
+	@include bp(bigbroUp) {
+		height:60px;
+		width:60px;
+	}
+}
+
+#menu-link .fa-bars{
+	display:block;
+	width:40px;
+	height:40px;
+	font-size:25px;
+	padding:7px 0 0 9px;
+	color:$purplelight;
+	border: none;
+	@include bp(bigbroUp) {
+		height:60px;
+		width:60px;
+		font-size:35px;
+		padding:12px 0 0 15px;
+	}
+}
+
+#menu-link:hover,
+#menu-link.active{
+	background: $purplelight;
+}
+
+#menu-link:hover .fa-bars,
+#menu-link.active .fa-bars{
+	color:$purpleHighlight;
+}
+
+#main-nav ul{
+	margin:0;
+	padding:0;
+	position: absolute;
+	left:-280px;
+	top:40px;
+	z-index: 10;
+	width:280px;
+	@include bp(bigbroUp) {
+		top:60px;
+	}
+}
+
+#main-nav ul li{
+	height:40px;
+	margin-bottom: 1px;
+}
+
+#main-nav ul li a{
+	display: block;
+	background: $purplelight;
+	position: relative;
+	padding-left:50px;
+	font-weight:700;
+	text-transform: uppercase;
+	line-height: 40px;
+	color:$purpleMedium;
+	text-decoration: none;
+}
+
+#main-nav ul li a:hover{
+	background-color:$purpleHighlight;
+}
+
+#main-nav ul li img{
+	height:30px;
+	width:auto;
+	position: absolute;
+	left:5px;
+	top:5px;
+}
+
+#main-nav #web img{
+	position: absolute;
+	left:0px;
+	top:0px;
+}
+
+
+// Text Based bit
+#intro{
+	text-align: center;
+	padding-top:30px;
+}
+
+#intro #statement{
+	margin-bottom: 0px;
+}
+
+#intro #hint{
+	position: relative;
+	top: 0px;
+	color:rgb(110,103,116);
+}
+
+.highlight{
+	color:rgb(142,84,255);
+}
+
+
+#text-form{
+	width:80%;
+	margin:0 auto;
+	margin-top:60px;
+	max-width:800px;
+}
+
+#text-form #text-input{
+	width:100%;
+	height:40px;
+	padding: 0 10px;
+	border:none;
+	background: none;
+	color:rgb(142,84,255);
+	border:1px solid $purplelight;
+	font-family: "futura-pt";
+	font-weight: 100;
+	text-align: center;
+	font-size:1.1em;
+	outline: none;
+	background: url(../img/left-bracket.png) no-repeat 10px center,url(../img/right-bracket.png) no-repeat right 10px center ;
+	background-size: 20px;
+	@include bp(babyUp) {
+		font-size:1.7em;
+		background-size: 30px;
+		height:50px;
+	}
+}
+
+#text-form button{
+	margin-top:20px;
+	clear:both;
+}
+
+//buttons
+.button{
+	background: $purplelight;
+	border:none;
+	height:40px;
+	color:#fff;
+	font-family: "futura-pt";
+	font-weight: 100;
+	padding:0 20px;
+	border-radius: 4px;
+	font-size: 1.3em;
+}
+
+
+// Images
+img{
+	height:auto;
+}
+
+.fullwidth-mobile{
+	width:114%;
+	position: relative;
+	left:-7%;
+}
+
+//video
+video{
+	width:100%;
+	border-radius: 4px;
+}
+
+
+// Books
+#tablet{
+	position: relative;
+	@include bp(bigbroUp) {
+		width:60%;
+		margin-left:-11.2%;
+	}
+}
+
+#tablet img{
+	width:100%;
+}
+
+#tablet #reader{
+	position: absolute;
+	top:12%;
+	left:6%;
+	width:88.1%;
+	height:76%;
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
+
+//Contact
+
+#contact-map{
+	width:114%;
+	height:220px;
+	@include bp(babyUp) {
+		height:520px;
+	}
+}
+
+#form{
+	max-width:660px;
+}
+
+input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+  color: rgb(69,69,76);
+}
+
+
+#contact-form input,
+#contact-form textarea{
+	width:96%;
+	padding:10px 2%;
+	border:none;
+	color:rgb(53,53,58);
+}
+
+#contact-form textarea{
+	height:150px;
+}
+
+
+#submit{
+	background: rgb(255,255,255);
+	border:none;
+	font-weight: bold;
+	padding:10px 20px;
+	float:right;
+	margin-top:20px;
+	border:1px solid rgb(85,85,84);
+}
+
+#submit:hover{
+	background: rgb(252,198,0);
+}
+
+//
+
+.mobile-demo-tap{
+	position: relative;
+}
+
+.mobile-screens{
+	position: absolute;
+	top:10%;
+	left:-0.5%;
+	width:101.5%;
+}
+
+.tablet-screens{
+	position: absolute;
+	top:8.7%;
+	left:6%;
+	width:89%;
+	overflow: hidden;
+	border-radius: 7px;
+	border:3px solid rgb(70,70,70);
+}
+
+.slider .slides{
+	position: absolute;
+	top:0px;
+	left:0px;
+	width:100%;
+}
+
+.slider img{
+	width:100%;
+	z-index: -1;
+}
+
+.slider .slide{
+	width:100%;
+	position:absolute;
+	top:0px;
+	left:0px;
+	z-index:5;
+}
+
+.slider .slide.active{
+	z-index:10;
+}
+
+// Standard Gallery
+/*! http://responsiveslides.com v1.54 by @viljamis */
+
+.standard-gallery-container{
+	position: relative;
+}
+
+.rslides {
+  position: relative;
+  list-style: none;
+  overflow: hidden;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  }
+
+.rslides li {
+  -webkit-backface-visibility: hidden;
+  position: absolute;
+  display: none;
+  width: 100%;
+  left: 0;
+  top: 0;
+  }
+
+.rslides li:first-child {
+  position: relative;
+  display: block;
+  float: left;
+  }
+
+.rslides img {
+  display: block;
+  height: auto;
+  float: left;
+  width: 100%;
+  border: 0;
+  }
+  
+  .rslides1_nav {
+  position: absolute;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+  top: 52%;
+  left: 0;
+  opacity: 0.7;
+  z-index: 30;
+  text-indent: -9999px;
+  overflow: hidden;
+  text-decoration: none;
+  height: 61px;
+  width: 38px;
+  background: transparent url("../img/gallery-arrows.gif") no-repeat left top;
+  margin-top: -45px;
+  }
+
+.rslides1_nav:active {
+  opacity: 1.0;
+  }
+
+.rslides1_nav.next {
+  left: auto;
+  background-position: right top;
+  right: 0;
+  }
+
+
+
+
+/* ==========================================================================
+   Media Queries
+   ========================================================================== */
+
+@media (max-width: 600px)  {
+	.hide-baby-below{
+		display:none;
+	}
+}
+
+@media (min-width: 600px)  {
+	.hide-above-baby{
+		display:none;
+	}
+}
+
