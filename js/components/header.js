@@ -14,6 +14,7 @@ export class Header {
                         <li id="books" role="none"><a href="/books" data-navigate title="Books Page" role="menuitem">Books</a></li>
                         <li id="web" role="none"><a href="/web" data-navigate title="Web Projects" role="menuitem">Crowdfunding</a></li>
                         <li id="news" role="none"><a href="/news" data-navigate title="News" role="menuitem">News</a></li>
+                        <li id="support" role="none"><a href="https://github.com/geiger-io/geiger.games/issues?q=state%3Aopen%20label%3Aearworm" title="Support" role="menuitem">Support</a></li>
                         <li id="contact" role="none"><a href="/contact" data-navigate title="Contact Page" role="menuitem">Contact</a></li>
                     </ul>
                 </nav>
