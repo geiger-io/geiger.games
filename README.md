@@ -164,7 +164,7 @@ The site is configured to use the custom domain `https://geiger.games`:
 ### Important Notes for GitHub Pages
 
 - **Base URL**: With a custom domain, `baseurl` in `_config.yml` is set to `""` (empty)
-- **Jekyll Processing**: The main site files (index.html, js/, css/, img/) are excluded from Jekyll processing but still served as static files
+- **Jekyll Processing**: The main site files (index.html, js/, css/, img/) are included in the build but not processed by Jekyll (they have no front matter, so Jekyll just copies them as-is)
 - **News Section**: The news section uses Jekyll to process markdown files from `_posts/`
 - **Adding News Posts**: Add new markdown files to `_posts/` with the format `YYYY-MM-DD-title.md`
 

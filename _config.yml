@@ -4,34 +4,26 @@ description: Geiger website
 baseurl: "" # empty for custom domain
 url: "https://geiger.games" # custom domain
 
-# Exclude files from Jekyll processing (but they'll still be served as static files)
+# Exclude files from Jekyll processing
+# Note: Files without front matter (like index.html, js/, css/, img/) will be copied
+# to _site but not processed by Jekyll, which is what we want for GitHub Pages
 exclude:
   - archive/
   - node_modules/
   - vendor/
   - Dockerfile
   - docker-compose.yml
+  - docker-compose.prod.yml
+  - Dockerfile.prod
   - README.md
   - .git/
   - .gitignore
   - ResponsiveSlides.js-master/
   - puphpet/
   - news/_site/  # Exclude built Jekyll site (old build directory)
-  - js/
-  - css/
-  - img/
-  - video/
-  - index.html  # Main site index (static JavaScript app)
-  - 404.html
-  - robots.txt
-  - humans.txt
-  - feed.xml
-  - favicon.ico
-  - apple-touch-icon-precomposed.png
-  - crossdomain.xml
+  - html/
   - badwords.txt
   - config.codekit
-  - html/
 
 # Build settings
 markdown: kramdown
