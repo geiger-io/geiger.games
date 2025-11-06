@@ -9,15 +9,17 @@ RUN apk add --no-cache \
 # Set working directory
 WORKDIR /srv/jekyll
 
-# Install bundler first (faster than installing all gems)
+# Install bundler first
 RUN gem install bundler --no-document
 
-# Copy Gemfile and install dependencies (with no documentation for faster install)
+# Copy Gemfile and install dependencies globally (so they persist with volume mounts)
 COPY Gemfile* ./
-RUN bundle config set --local without 'development test' && \
-    bundle config set --local path 'vendor/bundle' && \
-    bundle install --jobs 4 --retry 3 || \
-    gem install jekyll jekyll-feed jekyll-sitemap --no-document
+RUN if [ -f Gemfile ]; then \
+        bundle config set --global path '/usr/local/bundle' && \
+        bundle install --jobs 4 --retry 3; \
+    else \
+        gem install jekyll jekyll-feed jekyll-sitemap --no-document; \
+    fi
 
 # Copy application files
 COPY . /srv/jekyll/

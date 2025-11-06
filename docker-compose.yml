@@ -10,6 +10,8 @@ services:
     command: >
       sh -c "
         cd /srv/jekyll &&
-        bundle exec jekyll serve --host 0.0.0.0 --port 4000 --watch --force_polling || 
+        bundle config set --global path '/usr/local/bundle' 2>/dev/null || true &&
+        bundle install 2>/dev/null || true &&
+        bundle exec jekyll serve --host 0.0.0.0 --port 4000 --watch --force_polling 2>&1 || 
         jekyll serve --host 0.0.0.0 --port 4000 --watch --force_polling
       "
