@@ -16,6 +16,16 @@
 </head>
 <body>
     <div id="app"></div>
+    <script>
+        // GitHub Pages SPA redirect handler
+        (function() {
+            var redirect = sessionStorage.redirect;
+            delete sessionStorage.redirect;
+            if (redirect && redirect !== location.href) {
+                history.replaceState(null, null, redirect.split(location.origin)[1]);
+            }
+        })();
+    </script>
     <script type="module" src="js/app.js"></script>
 </body>
 </html>
