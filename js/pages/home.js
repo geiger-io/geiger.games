@@ -87,7 +87,11 @@ export class HomePage {
             } else if (progress >= 2) {
                 hint.innerHTML = hint3;
                 
-                if (val.match(/(book|digital books|ebooks|epub|ibooks|kindle)/)) {
+                // Check for bad words FIRST (before route matching)
+                if (badwords && val.match(new RegExp(badwords, 'i'))) {
+                    const text = bwrds[Math.floor(Math.random() * bwrds.length)];
+                    this.textSwap(statement, text);
+                } else if (val.match(/(book|digital books|ebooks|epub|ibooks|kindle)/)) {
                     this.textSwap(statement, statementbooks);
                     setTimeout(() => window.app.router.navigate('/books'), 1500);
                 } else if (val.match(/(web|website|web site|interwebs|internet|kickstarter|crowdfunding|pledgemanager|pledges|mantic|pledgehammer)/)) {
@@ -102,10 +106,8 @@ export class HomePage {
                 } else if (val.match(/(news|press|pr|blog|articles)/)) {
                     this.textSwap(statement, statementnews);
                     setTimeout(() => window.app.router.navigate('/news'), 2500);
-                } else if (badwords && val.match(new RegExp(badwords, 'i'))) {
-                    const text = bwrds[Math.floor(Math.random() * bwrds.length)];
-                    this.textSwap(statement, text);
                 } else {
+                    // No match found - show "no idea" response
                     const text = noidea[Math.floor(Math.random() * noidea.length)];
                     this.textSwap(statement, text);
                     hint.innerHTML = hint2;
