@@ -4,15 +4,15 @@ export class HomePage {
         return `
             <div id="index" class="container-strip">
                 <section class="container" id="intro">
-                    <h1 id="statement">Hello there adventurer! <br/>What's your name?</h1>
+                    <h1 id="statement" aria-live="polite" aria-atomic="true">Hello there adventurer! <br/>What's your name?</h1>
                     <br/>
-                    <span id="hint">Hint: Start typing, Submit</span>
+                    <span id="hint" aria-live="polite" aria-atomic="true">Hint: Start typing, Submit</span>
                     <br/>
                     <br/>
-                    <img id="geiger-logo" src="img/geiger-logo-large.png" alt="geiger-logo-large" />
+                    <img id="geiger-logo" src="img/geiger-logo-large.png" alt="Geiger logo" />
                     <form id="text-form">
                         <label for="text-input" class="visuallyhidden">Enter your name</label>
-                        <input type="text" id="text-input" name="name" aria-label="Enter your name" aria-describedby="hint" placeholder="Joe Bloggs" autocomplete="name">
+                        <input type="text" id="text-input" name="name" aria-label="Enter your name" aria-describedby="hint statement" placeholder="Joe Bloggs" autocomplete="name">
                         <button class="button" type="submit">Submit</button>
                     </form>
                 </section>
@@ -150,10 +150,20 @@ export class HomePage {
     }
 
     textSwap(element, statement) {
+        // Fade out for visual users
         element.style.opacity = '0';
         setTimeout(() => {
             element.innerHTML = statement;
             element.style.opacity = '1';
+            // Force screen readers to re-announce by briefly setting aria-live to off and back
+            // This ensures the new content is announced even if the change is subtle
+            const currentLive = element.getAttribute('aria-live');
+            if (currentLive) {
+                element.setAttribute('aria-live', 'off');
+                setTimeout(() => {
+                    element.setAttribute('aria-live', currentLive);
+                }, 10);
+            }
         }, 100);
     }
 }
