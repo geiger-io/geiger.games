@@ -24,7 +24,18 @@ html, button, input, select, textarea {
 
 body {
   margin: 0; 
-	overflow-y: scroll;
+  overflow-y: scroll;
+  min-height: 100vh;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+#app main {
+  flex: 1 0 auto;
 }
 
 a:focus {
@@ -411,8 +422,15 @@ footer
 background: #FBE81E;
 padding: 10px 20px;
 margin-top: 40px;
-color: white;
+color: #000000;
 text-align: center;
+flex-shrink: 0;
+}
+
+footer p {
+color: #000000;
+font-size: 1em;
+line-height: 1.4em;
 }
 
 p, li {
@@ -491,7 +509,8 @@ video#bgvid {
   border-top-style: solid;
   border-top-width: 4px;
   
-  position: relative; }
+  position: relative;
+  flex-shrink: 0; }
   @media (min-width: 1024px) {
     #top-bar {
       height: 60px; } }

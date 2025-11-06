@@ -4,8 +4,6 @@ import { Header } from './components/header.js';
 import { Footer, loadPlugins } from './components/footer.js';
 import { HomePage } from './pages/home.js';
 import { AppsPage } from './pages/apps.js';
-import { BooksPage } from './pages/books.js';
-import { WebPage } from './pages/web.js';
 import { ContactPage } from './pages/contact.js';
 import { NewsPage } from './pages/news.js';
 
@@ -23,8 +21,6 @@ class App {
         // Register routes
         this.router.addRoute('/', () => this.renderPage(HomePage));
         this.router.addRoute('/apps', () => this.renderPage(AppsPage));
-        this.router.addRoute('/books', () => this.renderPage(BooksPage));
-        this.router.addRoute('/web', () => this.renderPage(WebPage));
         this.router.addRoute('/contact', () => this.renderPage(ContactPage));
         this.router.addRoute('/news', () => this.renderPage(NewsPage));
 

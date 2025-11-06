@@ -7,66 +7,21 @@ echo ""
 # Check if Jekyll is available
 if command -v bundle &> /dev/null && [ -f Gemfile ]; then
     echo "Using Bundler to build with GitHub Pages compatible Jekyll..."
-    if bundle install 2>/dev/null; then
-        bundle exec jekyll build
-    else
-        echo "Bundler install failed, trying system Jekyll..."
-        if command -v jekyll &> /dev/null; then
-            jekyll build
-        else
-            echo "Jekyll not found. Checking for Docker..."
-            echo ""
-            if command -v docker &> /dev/null; then
-                echo "Using Docker to build and serve (like GitHub Pages)..."
-                docker-compose -f docker-compose.prod.yml up -d --build
-                echo ""
-                echo "✓ Docker container started!"
-                echo ""
-                echo "Access at: http://localhost:8080"
-                echo ""
-                echo "To stop: docker-compose -f docker-compose.prod.yml down"
-                exit 0
-            else
-                echo "Docker not found. Please install Jekyll or Docker."
-                echo ""
-                echo "To fix bundler issue:"
-                echo "  bundle update --bundler"
-                echo "  or"
-                echo "  gem install bundler:2.7.2"
-                echo ""
-                echo "Or install Docker:"
-                echo "  https://docs.docker.com/get-docker/"
-                exit 1
-            fi
-        fi
-    fi
+    bundle install
+    bundle exec jekyll build
 elif command -v jekyll &> /dev/null; then
     echo "Using system Jekyll to build..."
     jekyll build
 else
-    echo "Jekyll not found. Checking for Docker..."
+    echo "Jekyll not found. Please install Jekyll."
     echo ""
-    if command -v docker &> /dev/null; then
-        echo "Using Docker to build and serve (like GitHub Pages)..."
-        docker-compose -f docker-compose.prod.yml up -d --build
-        echo ""
-        echo "✓ Docker container started!"
-        echo ""
-        echo "Access at: http://localhost:8080"
-        echo ""
-        echo "To stop: docker-compose -f docker-compose.prod.yml down"
-        exit 0
-    else
-        echo "Docker not found. Please install Jekyll or Docker."
-        echo ""
-        echo "To install Jekyll:"
-        echo "  gem install bundler jekyll"
-        echo "  bundle install"
-        echo ""
-        echo "Or install Docker:"
-        echo "  https://docs.docker.com/get-docker/"
-        exit 1
-    fi
+    echo "To install Jekyll:"
+    echo "  gem install bundler jekyll"
+    echo "  bundle install"
+    echo ""
+    echo "Or run Docker manually:"
+    echo "  docker-compose -f docker-compose.prod.yml up -d"
+    exit 1
 fi
 
 if [ ! -d "_site" ]; then
