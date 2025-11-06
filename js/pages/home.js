@@ -31,19 +31,25 @@ export class HomePage {
         let progress = 0;
         textInput.focus();
 
-        // Load bad words
-        let badwords = '';
-        fetch('badwords.txt')
-            .then(response => response.text())
-            .then(txt => {
-                badwords = txt;
+        // Load bad words - make it a promise so we can wait for it
+        const badwordsPromise = fetch('/badwords.txt')
+            .then(response => {
+                if (!response.ok) throw new Error('Failed to load badwords');
+                return response.text();
             })
-            .catch(() => {
-                badwords = '';
+            .then(txt => {
+                return txt.trim(); // Trim whitespace and return
+            })
+            .catch((error) => {
+                console.warn('Could not load badwords.txt:', error);
+                return '';
             });
 
-        textForm.addEventListener('submit', (e) => {
+        textForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+            
+            // Wait for badwords to load before processing
+            const badwords = await badwordsPromise;
             
             const name = textInput.value;
             const val = name.toLowerCase();
@@ -79,21 +85,33 @@ export class HomePage {
             ];
             
             // Check for bad words FIRST (before any other processing)
-            if (badwords && val.match(new RegExp(badwords, 'i'))) {
-                const text = bwrds[Math.floor(Math.random() * bwrds.length)];
-                this.textSwap(statement, text);
-                // Reset hint appropriately - don't say it will redirect
-                if (progress === 0) {
-                    // First input (name) - keep original hint
-                    hint.innerHTML = "Hint: Start typing, Submit";
-                } else {
-                    // Second input (interest) - reset to interest hint
-                    hint.innerHTML = hint2;
+            // This check must happen before progress is incremented
+            if (badwords && badwords.length > 0) {
+                try {
+                    // badwords.txt is pipe-separated, use it directly as regex pattern
+                    const regex = new RegExp(badwords, 'i');
+                    const isBadWord = regex.test(val);
+                    if (isBadWord) {
+                        const text = bwrds[Math.floor(Math.random() * bwrds.length)];
+                        this.textSwap(statement, text);
+                        // Reset hint appropriately - don't say it will redirect
+                        if (progress === 0) {
+                            // First input (name) - keep original hint
+                            hint.innerHTML = "Hint: Start typing, Submit";
+                        } else {
+                            // Second input (interest) - reset to interest hint
+                            hint.innerHTML = hint2;
+                        }
+                        textForm.reset();
+                        return; // Don't increment progress if bad word detected
+                    }
+                } catch (error) {
+                    console.warn('Error checking bad words:', error);
+                    // Fall through if regex fails
                 }
-                textForm.reset();
-                return; // Don't increment progress if bad word detected
             }
             
+            // Only increment progress if we get past the bad words check
             progress++;
             textForm.reset();
             

@@ -22,7 +22,6 @@ exclude:
   - puphpet/
   - news/_site/  # Exclude built Jekyll site (old build directory)
   - html/
-  - badwords.txt
   - config.codekit
 
 # Build settings
