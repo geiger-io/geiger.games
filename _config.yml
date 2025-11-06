@@ -1,8 +1,8 @@
 # Jekyll configuration for GitHub Pages
 title: Geiger
 description: Geiger website
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site
+baseurl: "" # empty for custom domain
+url: "https://geiger.games" # custom domain
 
 # Exclude files from Jekyll processing (but they'll still be served as static files)
 exclude:
@@ -36,13 +36,9 @@ exclude:
 # Build settings
 markdown: kramdown
 highlighter: rouge
-plugins:
-  - jekyll-feed
-  - jekyll-sitemap
 
-# Development settings
-watch: true
-force_polling: true  # Better for Docker volume mounts
+# GitHub Pages plugins (automatically included, no need to specify)
+# jekyll-feed and jekyll-sitemap are supported by GitHub Pages
 
 # Defaults for posts
 defaults:

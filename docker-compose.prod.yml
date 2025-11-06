@@ -1,10 +1,11 @@
 # Production docker-compose file (builds static site)
 services:
   web:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
     container_name: geiger-website
     ports:
       - "8080:80"
     restart: unless-stopped
-    # Uses the Dockerfile CMD which builds static site and serves with nginx
 

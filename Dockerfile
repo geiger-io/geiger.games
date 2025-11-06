@@ -9,50 +9,19 @@ RUN apk add --no-cache \
 # Set working directory
 WORKDIR /srv/jekyll
 
-# Install Jekyll and bundler
-RUN gem install bundler jekyll
+# Install bundler first (faster than installing all gems)
+RUN gem install bundler --no-document
 
-# Copy Gemfile and install dependencies
+# Copy Gemfile and install dependencies (with no documentation for faster install)
 COPY Gemfile* ./
-RUN bundle install || gem install jekyll jekyll-feed jekyll-sitemap
+RUN bundle config set --local without 'development test' && \
+    bundle config set --local path 'vendor/bundle' && \
+    bundle install --jobs 4 --retry 3 || \
+    gem install jekyll jekyll-feed jekyll-sitemap --no-document
 
 # Copy application files
 COPY . /srv/jekyll/
 
-# Build Jekyll site (this will process markdown posts and generate HTML)
-RUN bundle exec jekyll build --destination /tmp/jekyll-build || jekyll build --destination /tmp/jekyll-build
-
-# Create nginx html directory
-RUN mkdir -p /usr/share/nginx/html
-
-# Copy Jekyll-built files (news section, feed.xml, etc.)
-RUN cp -r /tmp/jekyll-build/* /usr/share/nginx/html/ 2>/dev/null || true
-
-# Copy static files that Jekyll excludes to nginx html directory
-RUN cp -r js css img video /usr/share/nginx/html/ 2>/dev/null || true
-RUN cp index.html 404.html robots.txt favicon.ico apple-touch-icon-precomposed.png crossdomain.xml /usr/share/nginx/html/ 2>/dev/null || true
-
-# Configure nginx for SPA routing
-RUN echo 'server { \
-    listen 80; \
-    server_name _; \
-    root /usr/share/nginx/html; \
-    index index.html; \
-    \
-    # Handle client-side routing \
-    location / { \
-        try_files $uri $uri/ /index.html; \
-    } \
-    \
-    # Cache static assets \
-    location ~* \.(jpg|jpeg|png|gif|ico|css|js|svg|woff|woff2|ttf|eot)$ { \
-        expires 1y; \
-        add_header Cache-Control "public, immutable"; \
-    } \
-}' > /etc/nginx/conf.d/default.conf
-
-# Expose port 80
-EXPOSE 80
-
-# Start nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Note: Jekyll build is skipped here for faster development builds
+# The docker-compose.yml runs Jekyll serve which builds on-the-fly
+# For production builds, use docker-compose.prod.yml which builds the static site

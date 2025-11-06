@@ -150,9 +150,20 @@ This builds a static site (like GitHub Pages) and serves it with nginx.
 3. Select your branch (usually `main` or `master`)
 4. GitHub Pages will automatically build and deploy your site using Jekyll
 
+### Custom Domain Configuration
+
+The site is configured to use the custom domain `https://geiger.games`:
+
+- **CNAME file**: A `CNAME` file is included in the repository root with `geiger.games`
+- **DNS Configuration**: You need to configure your DNS settings:
+  - Add an `A` record pointing to GitHub Pages IPs: `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
+  - OR add a `CNAME` record pointing to `geiger-io.github.io`
+- **GitHub Settings**: After pushing, go to Settings > Pages and enter `geiger.games` in the Custom domain field
+- **SSL Certificate**: GitHub Pages will automatically provision an SSL certificate for your custom domain (may take a few minutes to hours)
+
 ### Important Notes for GitHub Pages
 
-- **Base URL**: If your site is at `username.github.io/repo-name`, update `baseurl` in `_config.yml` to `/repo-name`
+- **Base URL**: With a custom domain, `baseurl` in `_config.yml` is set to `""` (empty)
 - **Jekyll Processing**: The main site files (index.html, js/, css/, img/) are excluded from Jekyll processing but still served as static files
 - **News Section**: The news section uses Jekyll to process markdown files from `_posts/`
 - **Adding News Posts**: Add new markdown files to `_posts/` with the format `YYYY-MM-DD-title.md`
